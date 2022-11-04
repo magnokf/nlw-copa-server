@@ -8,8 +8,9 @@ async function main() {
 			  name: 'Magno Felipe',
 			  email: 'jd@email.com',
 			  avatarUrl: 'https://avatars.githubusercontent.com/u/24296039?s=400&u=8548b6c4026bf8ded1af8dab1356261cc6158eb1&v=4',
-
-		  }
+			  
+		  },
+		
 	  })
 	
 	const pool = await prisma.pool.create({

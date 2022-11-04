@@ -1,5 +1,6 @@
 import Fastify from 'fastify'
 import cors from '@fastify/cors'
+import jwt from '@fastify/jwt'
 import { poolRoutes } from './routes/pool'
 import { gameRoutes } from './routes/game'
 import { guessRoutes } from './routes/guess'
@@ -17,21 +18,18 @@ async function bootstrap() {
 		methods: [ 'GET', 'POST', 'PUT', 'DELETE' ],
 		allowedHeaders: [ 'Content-Type', 'Authorization' ]
 	})
+	// em produçaõ usar uma chave secreta no .env
+	await fastify.register(jwt, {
+		secret: 'supersecret'
+	})
   
-  // async function serverRoutes(){
-  //   poolRoutes(fastify);
-  //   gameRoutes(fastify);
-  //   guessRoutes(fastify);
-  //   userRoutes(fastify);
-  //   authRoutes(fastify);
-  // }
-await Promise.all([
-	fastify.register(authRoutes),
-	fastify.register(poolRoutes),
-	fastify.register(userRoutes),
-	fastify.register(gameRoutes),
-	fastify.register(guessRoutes)
-])
+	
+	await fastify.register(authRoutes)
+	await fastify.register(poolRoutes)
+	await fastify.register(userRoutes)
+	await fastify.register(gameRoutes)
+	await fastify.register(guessRoutes)
+
 	
 	
 	await fastify.listen({
