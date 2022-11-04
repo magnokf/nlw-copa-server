@@ -53,6 +53,8 @@ model Guess {
   scoreTeamB     Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([gameId, participantId])
 }
 
 model Participant {
